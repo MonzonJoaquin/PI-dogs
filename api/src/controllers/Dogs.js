@@ -123,11 +123,23 @@ async function putDog(req, res, next) {
 		});
 	}
 }
+
+function deleteDog(req, res, next) {
+	const {name} = req.body
+	if (name) {
+		Race.destroy({where:{name}})
+			.then(r => res.json(r))
+			.catch(e => next(e))
+	} else {
+		next({status:400, message: "No se recibió un ID correcto"})
+	}
+}
 module.exports = {
 	getAllDogs,
 	getIdDog,
 	createDog,
 	putDog,
+	deleteDog
 };
 
 /*Nombre
