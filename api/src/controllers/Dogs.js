@@ -1,5 +1,5 @@
 const axios = require("axios");
-const {Race} = require("../db.js");
+const { Race } = require("../db.js");
 
 async function getAllDogs(req, res, next) {
 	const { name } = req.query;
@@ -60,18 +60,18 @@ async function createDog(req, res, next) {
 		weight_max &&
 		years_of_life_min &&
 		years_of_life_max
-	){
-    try {
-      const newRace = await Race.create({
-        name,
-        height: `${height_min} - ${height_max}`,
-        weight: `${weight_min} - ${weight_max}`,
-        years_of_life: `${years_of_life_min} - ${years_of_life_max} years`,
-      });
-      res.send(newRace)
-    } catch (error) {
-      next(error)
-    }
+	) {
+		try {
+			const newRace = await Race.create({
+				name,
+				height: `${height_min} - ${height_max}`,
+				weight: `${weight_min} - ${weight_max}`,
+				years_of_life: `${years_of_life_min} - ${years_of_life_max} years`,
+			});
+			res.send(newRace);
+		} catch (error) {
+			next(error);
+		}
 	} else {
 		next({
 			status: 400,
@@ -80,10 +80,54 @@ async function createDog(req, res, next) {
 	}
 }
 
+async function putDog(req, res, next) {
+	const {
+		nameId,
+		name,
+		height_max,
+		height_min,
+		weight_min,
+		weight_max,
+		years_of_life_min,
+		years_of_life_max,
+	} = req.body;
+
+	if (
+		nameId &&
+		name &&
+		height_max &&
+		height_min &&
+		weight_min &&
+		weight_max &&
+		years_of_life_min &&
+		years_of_life_max
+	) {
+		try {
+			const update = await Race.update(
+				{
+					name,
+					height: `${height_min} - ${height_max}`,
+					weight: `${weight_min} - ${weight_max}`,
+					years_of_life: `${years_of_life_min} - ${years_of_life_max} years`,
+				},
+				{ where: { name: nameId } }
+			);
+			Object.values(update)[0] ? res.json("Raza de perro modificada") : next({ status: 404, message: "Raza de perro no encontrada" });
+		} catch (error) {
+			next(error);
+		}
+	} else {
+		next({
+			status: 400,
+			message: "No se recibieron todos los valores necesarios",
+		});
+	}
+}
 module.exports = {
 	getAllDogs,
 	getIdDog,
 	createDog,
+	putDog,
 };
 
 /*Nombre
