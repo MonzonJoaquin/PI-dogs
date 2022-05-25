@@ -1,5 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 
+import Footer from "../Footer/index"
+
 export default function NavList() {
 	return (
 		<>
@@ -12,17 +14,18 @@ export default function NavList() {
 						<NavLink to="/main">Listado de perros</NavLink>
 					</li>
 					<li>
-						<NavLink to="/creation">Crear raza de perro</NavLink>
+						<NavLink to="/main/creation">Crear raza de perro</NavLink>
 					</li>
 					<li>
-						<NavLink to="/account">Cuenta</NavLink>
+						<NavLink to="/main/account">Cuenta</NavLink>
 					</li>
 					<li>
-						<NavLink to="/game">Mascota virtual</NavLink>
+						<NavLink to="/main/game">Mascota virtual</NavLink>
 					</li>
 				</ul>
 			</nav>
 			<Outlet />
+			<Footer/>
 		</>
 	);
 }
