@@ -1,10 +1,9 @@
-
 import React from 'react'
 
-export default function index({content}) {
+export default function index({content, action}) {
   return (
     <>
-      <button>{content}</button>
+      <button onClick={action}>{content}</button>
     </>
   )
 }

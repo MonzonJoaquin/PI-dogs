@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 
-import Footer from "../Footer/index"
+import Footer from "../Footer/index";
 
 export default function NavList() {
 	return (
@@ -25,7 +25,7 @@ export default function NavList() {
 				</ul>
 			</nav>
 			<Outlet />
-			<Footer/>
+			<Footer />
 		</>
 	);
 }

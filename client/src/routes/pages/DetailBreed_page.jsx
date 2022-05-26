@@ -1,8 +1,11 @@
 import React from 'react'
 
+import Card from "../../components/Section/"
+
+
 export default function DetailBreed_page() {
   return (
-    <div>Detalle de la raza de perro</div>
+    <Card/>
   )
 }
 
