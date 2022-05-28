@@ -1,8 +1,8 @@
 import { NavLink, Outlet } from "react-router-dom";
 
-import Footer from "../Footer/index";
+import Footer from "../Footer/Footer";
 
-export default function NavList() {
+export default function NavBar() {
 	return (
 		<>
 			<nav>

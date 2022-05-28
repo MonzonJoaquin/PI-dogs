@@ -22,7 +22,7 @@ export default class Form extends Component {
 							return (
 								<div key={i}>
 									<label>{e.label}</label>{" "}
-									<input type={"text"} onChange={(e) => this.props.action(e)} />
+									<input type={"text"} />
 									{""}
 									{/*value={this.props[e.value*/}
 								</div>
@@ -86,6 +86,7 @@ export default class Form extends Component {
 					? this.inputRange.map((e, i) => {
 							return (
 								<div key={i}>
+									<label htmlFor={e.id}>{e.label}</label>
 									<input id={e.id} type={"range"} min={e.min} max={e.max} />
 								</div>
 							);

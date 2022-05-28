@@ -1,7 +1,8 @@
 import React from 'react'
+import CreateBreed from '../../containers/Forms/CreateBreed'
 
 export default function Account_page() {
   return (
-    <div>Crear raza de perro</div>
+    <CreateBreed/>
   )
 }
