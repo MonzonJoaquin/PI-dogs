@@ -3,34 +3,33 @@ import React, { Component } from "react";
 export default class Form extends Component {
 	constructor(props) {
 		super(props);
-		this.inputText = this.props.inputText ? this.props.inputText : null;
-		this.inputDatalist = this.props.inputDatalist
-			? this.props.inputDatalist
-			: null;
-		this.inputSelection = this.props.inputSelection
-			? this.props.inputSelection
-			: null;
-		this.inputRadio = this.props.inputRadio ? this.props.inputRadio : null;
-		this.inputCheck = this.props.inputCheck ? this.props.inputCheck : null;
-		this.inputRange = this.props.inputRange ? this.props.inputRange : null;
+		this.state = {
+			inputText: this.props.inputText ? this.props.inputText : null,
+			inputDatalist: this.props.inputDatalist ? this.props.inputDatalist : null,
+			inputSelection: this.props.inputSelection ? this.props.inputSelection: null,
+			inputRadio: this.props.inputRadio ? this.props.inputRadio : null,
+			inputCheck: this.props.inputCheck ? this.props.inputCheck : null,
+			inputRange: this.props.inputRange ? this.props.inputRange : null,
+		};
+	}
+	componentDidUpdate() {
+		console.log(this.props.inputRange);
 	}
 	render() {
 		return (
 			<>
-				{this.inputText
-					? this.inputText.map((e, i) => {
+				{this.props.inputText
+					? this.props.inputText.map((e, i) => {
 							return (
 								<div key={i}>
-									<label>{e.label}</label>{" "}
-									<input type={"text"} />
-									{""}
-									{/*value={this.props[e.value*/}
+									<label>{e.label}</label>
+									<input type={"text"} value={e.value} onChange={e.action} />
 								</div>
 							);
 					  })
 					: null}
-				{this.inputDatalist
-					? this.inputDatalist.map((e, i) => {
+				{this.props.inputDatalist
+					? this.props.inputDatalist.map((e, i) => {
 							return (
 								<div key={i}>
 									<input type="text" list={e.id} />
@@ -46,8 +45,8 @@ export default class Form extends Component {
 							);
 					  })
 					: null}
-				{this.inputSelection
-					? this.inputSelection.map((e, i) => {
+				{this.props.inputSelection
+					? this.props.inputSelection.map((e, i) => {
 							return (
 								<div key={i}>
 									<label htmlFor={e.id}>{e.text}</label>
@@ -62,8 +61,8 @@ export default class Form extends Component {
 							);
 					  })
 					: null}
-				{this.inputRadio
-					? this.inputRadio.map((e, i) => {
+				{this.props.inputRadio
+					? this.props.inputRadio.map((e, i) => {
 							return (
 								<div key={i}>
 									<label>{e.label}</label>
@@ -72,8 +71,8 @@ export default class Form extends Component {
 							);
 					  })
 					: null}
-				{this.inputCheck
-					? this.inputCheck.map((e, i) => {
+				{this.props.inputCheck
+					? this.props.inputCheck.map((e, i) => {
 							return (
 								<div key={i}>
 									<label>{e.label}</label>
@@ -82,12 +81,22 @@ export default class Form extends Component {
 							);
 					  })
 					: null}
-				{this.inputRange
-					? this.inputRange.map((e, i) => {
+				{this.props.inputRange
+					? this.props.inputRange.map((e, i) => {
 							return (
 								<div key={i}>
 									<label htmlFor={e.id}>{e.label}</label>
-									<input id={e.id} type={"range"} min={e.min} max={e.max} />
+									<input
+										name={e.name}
+										type={"range"}
+										min={e.min}
+										max={e.max}
+										onChange={(event) => e.action(event)}
+										// value={e.value}
+										value={5}
+									/>
+									{/* <input name={e.name} type={"number"} min={e.min} max={e.max} value={e.value} onChange={(event) => e.action(event)}/> */}
+									<span>{e.value}</span>
 								</div>
 							);
 					  })
