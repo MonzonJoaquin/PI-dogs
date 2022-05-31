@@ -5,29 +5,30 @@ import Action from "../Buttons/Action";
 export default function CreateBreed() {
 	const [form, setForm] = useState({
 		nameBreed: "Nombre de la raza",
+
 		weightMin: 1,
-		weightMid: 60,
 		weightMax: 120,
+
 		heightMin: 0.15,
-		heightMid: 70,
 		heightMax: 130,
-		years_of_life_min: 1,
-		years_of_life_min_value: 7,
-		years_of_life_max_value: 20,
+
+		years_of_life_min: 7,
 		years_of_life_max: 25,
 	});
 
 	const [values, setValues] = useState({
-		years_of_life_mid: form.years_of_life_max_value,
+		years_of_life_mid: 20,
+		weightMid: 60,
+		heightMid: 70,
 	});
-
 
 	function onChanceStateInput(e) {
 		// setear nuevo state del input
-		setForm({...form, [e.target.name]: Number(e.target.value)})
+		setForm({ ...form, [e.target.name]: Number(e.target.value) });
 	}
 	function onChanceValue(e) {
-		setValues({years_of_life_max_value: e.target.value})
+		onChanceStateInput(e);
+		setValues({ ...values, [e.target.setMid]: Number(e.target.value)});
 	}
 	// controlador de state local
 	return (
@@ -35,30 +36,64 @@ export default function CreateBreed() {
 			<Form
 				// inputText={[{ label: "Nombre de la raza", value: form.nameBreed }]}
 				inputRange={[
-					// { id: "peso_min", label: "Peso minimo", min: form.weightMin, max: form.weightMid },
-					// { id: "peso_max", label: "Peso máximo", min: form.weightMid, max: form.weightMax },
-					// { id: "altura_min", label: "Altura minima", min: form.heightMin, max: form.heightMid },
-					// { id: "altura_max", label: "Altura máxima", min: form.heightMid, max: form.heightMax },
 					{
-						name: "years_of_life_min_value",
-						label: "Años de vida minimo",
-						min: form.years_of_life_min,
-						max: values.years_of_life_mid,
-						value: form.years_of_life_min_value,
-						action: onChanceStateInput
+						name: "weightMin",
+						setMid: "weightMid",
+						label: "Peso minimo",
+						min: 1,
+						max: form.weightMax,
+						value: form.weightMin,
+						action: onChanceValue,
 					},
 					{
-						name: "years_of_life_max_value",
+						name: "weightMax",
+						label: "Peso máximo",
+						min: values.weightMid,
+						max: 120,
+						value: form.weightMax,
+						action: onChanceStateInput,
+					},
+					{
+						name: "heightMin",
+						setMid: "heightMid",
+						label: "Altura minima",
+						min: 0.15,
+						max: form.heightMax,
+						value: form.heightMin,
+						action: onChanceValue,
+					},
+					{
+						name: "heightMax",
+						label: "Altura máxima",
+						min: values.heightMid,
+						max: 130,
+						value: form.heightMax,
+						action: onChanceStateInput,
+					},
+					{
+						name: "years_of_life_min",
+						setMid: "years_of_life_mid",
+						label: "Años de vida minimo",
+						min: 1,
+						max: form.years_of_life_max,
+						value: form.years_of_life_min,
+						action: onChanceValue,
+					},
+					{
+						name: "years_of_life_max",
 						label: "Años de vida máximo",
 						min: values.years_of_life_mid,
-						max: form.years_of_life_max,
-						value: form.years_of_life_max_value,
-						action: onChanceValue
+						max: 25,
+						value: form.years_of_life_max,
+						action: onChanceStateInput,
 					},
 				]}
 				action={onChanceStateInput}
 			/>
-			<Action action={(e) => console.log(form)} content={"Crear raza de perro"} />
+			<Action
+				action={(e) => console.log(form ,values)}
+				content={"Crear raza de perro"}
+			/>
 		</>
 	);
 }
