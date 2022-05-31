@@ -24,21 +24,22 @@ export default function CreateBreed() {
 
 	function onChanceStateInput(e) {
 		// setear nuevo state del input
-		setForm({ ...form, [e.target.name]: Number(e.target.value) });
+		setForm({ ...form, [e.target.name]: e.target.value });
 	}
 	function onChanceValue(e) {
 		onChanceStateInput(e);
-		setValues({ ...values, [e.target.setMid]: Number(e.target.value)});
+		console.log(e);
+		setValues({ ...values, [e.target.dataset.setmid]: e.target.value});
 	}
 	// controlador de state local
 	return (
 		<>
 			<Form
-				// inputText={[{ label: "Nombre de la raza", value: form.nameBreed }]}
+				inputText={[{ name: "nameBreed", label: "Nombre de la raza", value: form.nameBreed, action: onChanceStateInput }]}
 				inputRange={[
 					{
 						name: "weightMin",
-						setMid: "weightMid",
+						setmid: "weightMid",
 						label: "Peso minimo",
 						min: 1,
 						max: form.weightMax,
@@ -55,7 +56,7 @@ export default function CreateBreed() {
 					},
 					{
 						name: "heightMin",
-						setMid: "heightMid",
+						setmid: "heightMid",
 						label: "Altura minima",
 						min: 0.15,
 						max: form.heightMax,
@@ -72,7 +73,7 @@ export default function CreateBreed() {
 					},
 					{
 						name: "years_of_life_min",
-						setMid: "years_of_life_mid",
+						setmid: "years_of_life_mid",
 						label: "Años de vida minimo",
 						min: 1,
 						max: form.years_of_life_max,

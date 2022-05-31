@@ -22,7 +22,7 @@ export default class Form extends Component {
 							return (
 								<div key={i}>
 									<label>{e.label}</label>
-									<input type={"text"} value={e.value} onChange={e.action} />
+									<input name={e.name} type={"text"} onChange={e.action} />
 								</div>
 							);
 					  })
@@ -90,6 +90,7 @@ export default class Form extends Component {
 										type={"range"}
 										min={e.min}
 										max={e.max}
+										data-setmid={e.setmid}
 										onChange={(event) => e.action(event)}
 										// value={e.value}
 										
