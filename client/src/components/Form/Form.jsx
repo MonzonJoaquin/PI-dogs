@@ -31,6 +31,7 @@ export default class Form extends Component {
 					? this.props.inputDatalist.map((e, i) => {
 							return (
 								<div key={i}>
+									<label htmlFor={e.id}> {e.text} </label>
 									<input type="text" list={e.id} />
 									<datalist id={e.id}>
 										{e.options.map((e) => (
@@ -48,7 +49,7 @@ export default class Form extends Component {
 					? this.props.inputSelection.map((e, i) => {
 							return (
 								<div key={i}>
-									<label htmlFor={e.id}>{e.text}</label>
+									<label htmlFor={e.id}> {e.text} </label>
 									<select id={e.id}>
 										{e.options.map((e) => (
 											<option key={e.value} value={e.value}>
@@ -92,8 +93,7 @@ export default class Form extends Component {
 										max={e.max}
 										data-setmid={e.setmid}
 										onChange={(event) => e.action(event)}
-										// value={e.value}
-										
+										value={e.value}
 									/>
 									{/* <input name={e.name} type={"number"} min={e.min} max={e.max} value={e.value} onChange={(event) => e.action(event)}/> */}
 									<span>{e.value}</span>

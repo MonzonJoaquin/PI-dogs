@@ -1,32 +1,123 @@
-import React from "react";
+import React, { useState } from "react";
 import Form from "../../components/Form/Form";
-import Action from "../Buttons/Action"
+import Action from "../Buttons/Action";
+
+export default function Presentation({}) {
+	const [form, setForm] = useState({
+		nameBreed: "Nombre de la raza",
+
+		weightMin: 1,
+		weightMax: 120,
+
+		heightMin: 0.15,
+		heightMax: 130,
+
+		years_of_life_min: 1,
+		years_of_life_max: 25,
+
+		weightMid: 60,
+		heightMid: 65,
+		years_of_life_mid: 12,
+	});
 
 
-export default function Presentation({
-
-}) {
-
-  function onChanceStateInput(e){ // setear nuevo state del input
-    console.log(e.target.value);
-  }
-  // controlador de state local
+	function onChanceStateInput(e) {
+		// setear nuevo state del input
+		if (e.target.dataset.setmid) {
+			setForm({...form, [e.target.name] : e.target.value, [e.target.dataset.setmid]: e.target.value})
+		} else {
+			setForm({...form, [e.target.name] : e.target.value})
+		}
+	}
+   // controlador de state local
 	return (
 		<>
 			<Form
-				inputSelection={[{id:"Orden", text:"Orden", options:[{value:"Alf Asc"},{value:"Alf Desc"},{value:"Peso Asc"},{value:"Peso Desc"}]}]}
-				inputDatalist={[{id:"Razas", options:[{value:"Raza 1"},{value:"Labrador"},{value:"Dogo"},{value:"Caniche"},{value:"Bulldog"},{value:"Pitbull"},]}]}
-				inputRange={[
-					{ id: "peso_min", label: "Peso minimo", min: 0, max: 10 },
-					{ id: "peso_max", label: "Peso máximo", min: 10, max: 99 },
-					{ id: "altura_min", label: "Altura minima", min: 10, max: 99 },
-					{ id: "altura_max", label: "Altura máxima", min: 10, max: 99 },
-					{ id: "años_de_vida_min", label: "Años de vida minimo", min: 10, max: 99 },
-					{ id: "años_de_vida_max", label: "Años de vida máximo", min: 10, max: 99 },
+				inputSelection={[
+					{
+						id: "Orden",
+						text: "Seleccione un orden de listado",
+						options: [
+							{ value: "Alf Asc" },
+							{ value: "Alf Desc" },
+							{ value: "Peso Asc" },
+							{ value: "Peso Desc" },
+						],
+					},
 				]}
-        action={onChanceStateInput}
+				inputDatalist={[
+					{
+						id: "Razas",
+						text: "Razas disponibles",
+						options: [
+							{ value: "Raza 1" },
+							{ value: "Labrador" },
+							{ value: "Dogo" },
+							{ value: "Caniche" },
+							{ value: "Bulldog" },
+							{ value: "Pitbull" },
+						],
+					},
+				]}
+				inputRange={[
+					{
+						name: "weightMin",
+						setmid: "weightMid",
+						label: "Peso minimo",
+						min: 1,
+						max: form.weightMax,
+						value: form.weightMin,
+						action: onChanceStateInput,
+					},
+					{
+						name: "weightMax",
+						label: "Peso máximo",
+						min: form.weightMid,
+						max: 120,
+						value: form.weightMax,
+						action: onChanceStateInput,
+					},
+					{
+						name: "heightMin",
+						setmid: "heightMid",
+						label: "Altura minima",
+						min: 0.15,
+						max: form.heightMax,
+						value: form.heightMin,
+						action: onChanceStateInput,
+					},
+					{
+						name: "heightMax",
+						label: "Altura máxima",
+						min: form.heightMid,
+						max: 130,
+						value: form.heightMax,
+						action: onChanceStateInput,
+					},
+					{
+						name: "years_of_life_min",
+						setmid: "years_of_life_mid",
+						label: "Años de vida minimo",
+						min: 1,
+						max: form.years_of_life_max,
+						value: form.years_of_life_min,
+						action: onChanceStateInput,
+					},
+					{
+						name: "years_of_life_max",
+						label: "Años de vida máximo",
+						min: form.years_of_life_mid,
+						max: 25,
+						value: form.years_of_life_max,
+						action: onChanceStateInput,
+					},
+				]}
+				action={onChanceStateInput}
 			/>
-      <Action action={(e) => console.log} content={"Buscar raza de perro"}/>
+			<Action
+				action={(e) => console.log(form)}
+				content={"Buscar raza de perro"}
+			/>
 		</>
 	);
 }
@@ -44,4 +135,8 @@ export default function Presentation({
 // height_max: this.props.height_max,
 // years_of_life_min: this.props.years_of_life_min,
 // years_of_life_max: this.props.years_of_life_max,
+*/
+
+/*
+
 */

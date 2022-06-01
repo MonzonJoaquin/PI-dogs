@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Form from "../../components/Form/Form";
 import Action from "../Buttons/Action";
 
@@ -28,7 +28,6 @@ export default function CreateBreed() {
 	}
 	function onChanceValue(e) {
 		onChanceStateInput(e);
-		console.log(e);
 		setValues({ ...values, [e.target.dataset.setmid]: e.target.value});
 	}
 	// controlador de state local
