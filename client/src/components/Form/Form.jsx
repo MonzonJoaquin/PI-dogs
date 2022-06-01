@@ -6,9 +6,7 @@ export default class Form extends Component {
 		this.state = {
 			inputText: this.props.inputText ? this.props.inputText : null,
 			inputDatalist: this.props.inputDatalist ? this.props.inputDatalist : null,
-			inputSelection: this.props.inputSelection
-				? this.props.inputSelection
-				: null,
+			inputSelection: this.props.inputSelection? this.props.inputSelection: null,
 			inputRadio: this.props.inputRadio ? this.props.inputRadio : null,
 			inputCheck: this.props.inputCheck ? this.props.inputCheck : null,
 			inputRange: this.props.inputRange ? this.props.inputRange : null,

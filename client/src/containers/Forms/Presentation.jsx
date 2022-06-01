@@ -3,6 +3,7 @@ import Form from "../../components/Form/Form";
 import Action from "../Buttons/Action";
 
 export default function Presentation({}) {
+	//Estado local del form
 	const [form, setForm] = useState({
 		nameBreed: "Nombre de la raza",
 
@@ -19,17 +20,20 @@ export default function Presentation({}) {
 		heightMid: 65,
 		years_of_life_mid: 12,
 	});
+	
 
-
+	// Set state form
 	function onChanceStateInput(e) {
-		// setear nuevo state del input
 		if (e.target.dataset.setmid) {
-			setForm({...form, [e.target.name] : e.target.value, [e.target.dataset.setmid]: e.target.value})
+			setForm({
+				...form,
+				[e.target.name]: e.target.value,
+				[e.target.dataset.setmid]: e.target.value,
+			});
 		} else {
-			setForm({...form, [e.target.name] : e.target.value})
+			setForm({ ...form, [e.target.name]: e.target.value });
 		}
 	}
-   // controlador de state local
 	return (
 		<>
 			<Form
@@ -118,6 +122,7 @@ export default function Presentation({}) {
 				action={(e) => console.log(form)}
 				content={"Buscar raza de perro"}
 			/>
+			
 		</>
 	);
 }
