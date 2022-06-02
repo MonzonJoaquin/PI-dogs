@@ -8,7 +8,7 @@ export default class Action extends Component {
   }
   render() {
     return (
-      <Button action={this.props.action} content={this.props.content}/>
+      <Button action={this.props.action} content={this.props.content} active={this.props.active}/>
     )
   }
 }

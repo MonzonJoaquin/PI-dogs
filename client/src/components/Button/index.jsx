@@ -1,10 +1,8 @@
-import React from 'react'
+import React  from 'react'
 
-export default function index({content, action=null}) {
+export default function index({content, action=null, active = true}) {
   return (
-    <>
-      <button onClick={action}>{content}</button>
-    </>
+    active? <button onClick={action}>{content}</button>: <button onClick={action} disabled>{content}</button>
   )
 }
 
