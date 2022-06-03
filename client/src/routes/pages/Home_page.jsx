@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Directional from "../../containers/Buttons/Directional";
 
 import img_dog from "../../../src/assets/dog.png";
 
+import { useDispatch } from 'react-redux'
+import { fetchAllDogs } from '../../controllers/reducer'
+
 export default function Home_page() {
+	
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		dispatch(fetchAllDogs())
+	})
+
 	return (
 		<>
 			<header className="title">
@@ -17,3 +27,4 @@ export default function Home_page() {
 		</>
 	);
 }
+

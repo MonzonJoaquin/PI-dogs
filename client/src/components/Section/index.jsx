@@ -1,14 +1,23 @@
-import React from 'react'
+import React from "react";
 
-export default function Card({}) {
-  // traer de Container un arreglo de objetos con propiedad (caracteristica del perro ej: altura, peso, etc) y su valor
+export default function Card({ elements }) {
+	// traer de Container un arreglo de objetos con propiedad (caracteristica del perro ej: altura, peso, etc) y su valor
 
-  return (
-    <div className='Card'>
-      <h3>Nombre de la raza</h3> 
-      <img src="" alt="Imagen ilustrativa de la raza del perro" />
-      <p>Propiedad = <span>Valor</span></p>
-    </div>
-  )
+	return (
+		<>
+			{elements.map((e) => (
+				<div key={e.id} className="Card">
+					<h4>{e.name}</h4>
+					<img src={e.image} alt="Imagen ilustrativa de la raza del perro" />
+					{e.attributes.map((e, i) => (
+						<div key={i}>
+							<p>
+								{e[0]} = <span>{e[1]}</span>
+							</p>
+						</div>
+					))}
+				</div>
+			))}
+		</>
+	);
 }
-

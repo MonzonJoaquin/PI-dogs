@@ -1,21 +1,22 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+// import redux
+import { fetchAllDogs } from '../../controllers/reducer'
 
 //Presentation
-
-
-//Breeds
-import Card from '../../components/Section'
 import Presentation from '../../containers/Forms/Presentation'
 
+//Breeds
+import Cards from '../../containers/Sections/Cards.jsx'
 
-export default class Main_page extends Component {
+class Main_page extends Component {
   constructor(){
     super()
-
-    // REDUX 
-
-    //
-
+  }
+  componentDidMount(){
+    if (!this.props.dogs.list[0]) {
+      this.props.fetchAllDogs()
+    }
   }
   render() {
     return (
@@ -24,10 +25,21 @@ export default class Main_page extends Component {
           <Presentation/>
         </header>
         <main className='breeds'>
-          <Card/>
+          <Cards/>
         </main>
       </>
     )
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchAllDogs: () => dispatch(fetchAllDogs())
+  }
+}
+
+const mapStateToProps = (state) => ({
+  dogs: state.dogs,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main_page)
