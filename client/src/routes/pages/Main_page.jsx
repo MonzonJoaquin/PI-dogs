@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import redux
-import { fetchAllDogs } from '../../controllers/reducer'
+import { fetchAllDogs } from '../../controllers/action'
 
 //Presentation
 import Presentation from '../../containers/Forms/Presentation'

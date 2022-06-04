@@ -20,7 +20,7 @@ export default class Form extends Component {
 							return (
 								<div key={i}>
 									<label>{e.label}</label>
-									<input name={e.name} type={"text"} onChange={e.action} />
+									<input name={e.name} type={"text"} onChange={(event) => {e.action(event)}}/>
 								</div>
 							);
 					  })
@@ -29,11 +29,11 @@ export default class Form extends Component {
 					? this.props.inputDatalist.map((e, i) => {
 							return (
 								<div key={i}>
-									<label htmlFor={e.id}> {e.text} </label>
-									<input type="text" list={e.id} />
-									<datalist id={e.id}>
+									<label htmlFor={e.id} > {e.text} </label>
+									<input type="text" list={e.id} name={e.name} onChange={(event) => {e.action(event)}}/>
+									<datalist id={e.id} >
 										{e.options.map((e) => (
-											<option key={e.value} value={e.value}>
+											<option key={e.value} value={e.value} >
 												{" "}
 												{e.value}{" "}
 											</option>
@@ -48,7 +48,7 @@ export default class Form extends Component {
 							return (
 								<div key={i}>
 									<label htmlFor={e.id}> {e.text} </label>
-									<select id={e.id}>
+									<select id={e.id}  name={e.name} onChange={(event) => {e.action(event)}}>
 										{e.options.map((e) => (
 											<option key={e.value} value={e.value}>
 												{e.value}

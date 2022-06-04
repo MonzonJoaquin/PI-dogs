@@ -1,17 +1,20 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Form from "../../components/Form/Form";
+import { setDogsList } from "../../controllers/reducer";
 import Action from "../Buttons/Action";
 
-export default function Presentation({}) {
+export default function Presentation() {
 	//Estado local del form
 	const [form, setForm] = useState({
-		nameBreed: "Nombre de la raza",
+		order: "Alf Desc",
+		selection: "",
 
 		weightMin: 1,
 		weightMax: 120,
 
 		heightMin: 0.15,
-		heightMax: 130,
+		heightMax: 110,
 
 		years_of_life_min: 1,
 		years_of_life_max: 25,
@@ -20,47 +23,92 @@ export default function Presentation({}) {
 		heightMid: 65,
 		years_of_life_mid: 12,
 	});
-	
+
+	const data = useSelector((state) => state.dogs);
+
+	const dispatch = useDispatch();
+
+	let restructuring = data.list.map((e) => {
+		return {
+			value: e.name,
+		};
+	});
 
 	// Set state form
 	function onChanceStateInput(e) {
 		if (e.target.dataset.setmid) {
 			setForm({
 				...form,
-				[e.target.name]: e.target.value,
-				[e.target.dataset.setmid]: e.target.value,
+				[e.target.name]: Number.isNaN(Number(e.target.value))
+					? e.target.name
+					: Number(e.target.value),
+				[e.target.dataset.setmid]: Number.isNaN(Number(e.target.value))
+					? e.target.name
+					: Number(e.target.value),
 			});
 		} else {
-			setForm({ ...form, [e.target.name]: e.target.value });
+			setForm({
+				...form,
+				[e.target.name]: Number.isNaN(Number(e.target.value))
+					? e.target.name
+					: Number(e.target.value),
+			});
 		}
 	}
+
+	//filter y ordenamiento
+	function submit(form) {
+		console.log(
+			data.list.filter(
+				(e) =>
+					e.weight[0] > form.weightMin &&
+					(e.weight[1] ? e.weight[1] < form.weightMax : true) &&
+					e.height[0] > form.heightMin &&
+					 (e.height[1] ? e.height[1] < form.heightMax : true) 
+					// e.life_span[0] > e.years_of_life_min &&
+					// (e.life_span[1] ? e.life_span[1] < form.years_of_life_max : true)
+			)
+		);
+		dispatch(
+			setDogsList(
+				data.list.filter(
+					(e) =>
+						e.weight[0] > form.weightMin &&
+						(e.weight[1] ? e.weight[1] < form.weightMax : true) 
+						// e.height[0] > form.heightMin &&
+						// (e.height[1] ? e.height[1] < form.heightMax : true) &&
+						// e.life_span[0] > e.years_of_life_min &&
+						// (e.life_span[1] ? e.life_span[1] < form.years_of_life_max : true)
+				)
+			)
+		);
+	}
+
+	// form.selection?e.name.toLowerCase().includes(form.selection.toLowerCase()):true
 	return (
 		<>
 			<Form
 				inputSelection={[
 					{
 						id: "Orden",
+						name: "order",
 						text: "Seleccione un orden de listado",
 						options: [
-							{ value: "Alf Asc" },
 							{ value: "Alf Desc" },
+							{ value: "Alf Asc" },
 							{ value: "Peso Asc" },
 							{ value: "Peso Desc" },
 						],
+						action: onChanceStateInput,
 					},
 				]}
 				inputDatalist={[
 					{
 						id: "Razas",
+						name: "selection",
 						text: "Razas disponibles",
-						options: [
-							{ value: "Raza 1" },
-							{ value: "Labrador" },
-							{ value: "Dogo" },
-							{ value: "Caniche" },
-							{ value: "Bulldog" },
-							{ value: "Pitbull" },
-						],
+						options: restructuring,
+						action: onChanceStateInput,
 					},
 				]}
 				inputRange={[
@@ -94,7 +142,7 @@ export default function Presentation({}) {
 						name: "heightMax",
 						label: "Altura máxima",
 						min: form.heightMid,
-						max: 130,
+						max: 110,
 						value: form.heightMax,
 						action: onChanceStateInput,
 					},
@@ -118,11 +166,9 @@ export default function Presentation({}) {
 				]}
 				action={onChanceStateInput}
 			/>
-			<Action
-				action={(e) => console.log(form)}
-				content={"Buscar raza de perro"}
-			/>
-			
+			<Action action={(e) => console.log(form)} content={"Form"} />
+			<Action action={(e) => console.log(data)} content={"Data"} />
+			<Action action={(e) => submit(form)} content={"Buscar raza de perro"} />
 		</>
 	);
 }

@@ -14,13 +14,13 @@ async function getAllDogs(req, res, next) {
 			res.json(
 				dogs.data.map((e) => ({
 					id: e.id,
-					name: e.name,
-					life_span: e.life_span,
+					name: e.name.toLowerCase(),
+					life_span: e.life_span.split(" ").map(e => Number(e)).filter((e) => !Number.isNaN(e)),
 					temperament: e.temperament,
 					breed_group: e.breed_group,
 					image: e.image.url,
-					weight: e.weight.metric,
-					height: e.height.metric,
+					weight: e.weight.metric.split(" ").map(e => Number(e)).filter((e) => !Number.isNaN(e)),
+					height: e.height.metric.split(" ").map(e => Number(e)).filter((e) => !Number.isNaN(e)),
 				}))
 			);
 		}
@@ -112,7 +112,9 @@ async function putDog(req, res, next) {
 				},
 				{ where: { name: nameId } }
 			);
-			Object.values(update)[0] ? res.json("Raza de perro modificada") : next({ status: 404, message: "Raza de perro no encontrada" });
+			Object.values(update)[0]
+				? res.json("Raza de perro modificada")
+				: next({ status: 404, message: "Raza de perro no encontrada" });
 		} catch (error) {
 			next(error);
 		}
@@ -125,13 +127,13 @@ async function putDog(req, res, next) {
 }
 
 function deleteDog(req, res, next) {
-	const {name} = req.body
+	const { name } = req.body;
 	if (name) {
-		Race.destroy({where:{name}})
-			.then(r => res.json(r))
-			.catch(e => next(e))
+		Race.destroy({ where: { name } })
+			.then((r) => res.json(r))
+			.catch((e) => next(e));
 	} else {
-		next({status:400, message: "No se recibió un ID correcto"})
+		next({ status: 400, message: "No se recibió un ID correcto" });
 	}
 }
 module.exports = {
@@ -139,7 +141,7 @@ module.exports = {
 	getIdDog,
 	createDog,
 	putDog,
-	deleteDog
+	deleteDog,
 };
 
 /*Nombre

@@ -5,7 +5,7 @@ import Directional from "../../containers/Buttons/Directional";
 import img_dog from "../../../src/assets/dog.png";
 
 import { useDispatch } from 'react-redux'
-import { fetchAllDogs } from '../../controllers/reducer'
+import { fetchAllDogs } from '../../controllers/action'
 
 export default function Home_page() {
 	
