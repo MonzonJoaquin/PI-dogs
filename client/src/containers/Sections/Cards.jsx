@@ -8,7 +8,11 @@ export default function Cards() {
 	const [index, setIndex] = useState(0)
 	const data = useSelector((state) => state.dogs);
 
-	let paginated = data.list.slice(index, index+8);
+	const dif = []
+	dif.push(data.filter)
+	console.log(dif);
+
+	let paginated = data.filter.slice(index, index+8);
 
 
 	let restructuring = paginated.map((e) => {
@@ -36,3 +40,8 @@ export default function Cards() {
 		</>
 	);
 }
+
+// 260
+// VM9455:2 261
+// VM9455:2 262
+// VM9455:2 264

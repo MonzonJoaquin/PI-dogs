@@ -19,7 +19,7 @@ async function getAllDogs(req, res, next) {
 					temperament: e.temperament,
 					breed_group: e.breed_group,
 					image: e.image.url,
-					weight: e.weight.metric.split(" ").map(e => Number(e)).filter((e) => !Number.isNaN(e)),
+					weight: e.weight.metric!=="NaN"? e.weight.metric.split(" ").map(e => Number(e)).filter((e) => !Number.isNaN(e)): e.weight.imperial.split(" ").map(e => Number(e)*0.45).filter((e) => !Number.isNaN(e)),
 					height: e.height.metric.split(" ").map(e => Number(e)).filter((e) => !Number.isNaN(e)),
 				}))
 			);

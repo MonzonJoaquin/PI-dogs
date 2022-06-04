@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "../../components/Form/Form";
-import { setDogsList } from "../../controllers/reducer";
+import { setDogsFilter } from "../../controllers/reducer";
 import Action from "../Buttons/Action";
 
 export default function Presentation() {
@@ -10,29 +10,28 @@ export default function Presentation() {
 		order: "Alf Desc",
 		selection: "",
 
-		weightMin: 1,
+		weightMin: 0.3,
 		weightMax: 120,
 
 		heightMin: 0.15,
 		heightMax: 110,
 
-		years_of_life_min: 1,
-		years_of_life_max: 25,
+		years_of_life_min: 0.5,
+		years_of_life_max: 30,
 
-		weightMid: 1,
-		heightMid: 1,
-		years_of_life_mid: 1,
+		weightMid: 0.3,
+		heightMid: 0.3,
+		years_of_life_mid: 0.3,
 	});
 
 	const data = useSelector((state) => state.dogs);
-
-	const dispatch = useDispatch();
-
 	let restructuring = data.list.map((e) => {
 		return {
 			value: e.name,
 		};
 	});
+
+	const dispatch = useDispatch()
 
 	// Set state form
 	function onChanceStateInput(e) {
@@ -58,31 +57,22 @@ export default function Presentation() {
 
 	//filter y ordenamiento
 	function submit(form) {
-		console.log(
-			data.list.filter(
-				(e) =>
-					e.weight[0] > form.weightMin &&
-					(e.weight[1]
-						? e.weight[1] < form.weightMax
-						: e.weight[0] < form.weightMax) &&
-					e.height[0] > form.heightMin &&
-					(e.height[1]
-						? e.height[1] < form.heightMax
-						: e.height[0] < form.heightMax) &&
-					 e.life_span[0] > form.years_of_life_min &&
-					(e.life_span[1] ? e.life_span[1] < form.years_of_life_max : e.life_span[0] < form.years_of_life_max)
-			)
-		);
 		dispatch(
-			setDogsList(
-				data.list.filter(
+			setDogsFilter(
+				data.filter.filter(
 					(e) =>
 						e.weight[0] > form.weightMin &&
-						(e.weight[1] ? e.weight[1] < form.weightMax : true)
-					// e.height[0] > form.heightMin &&
-					// (e.height[1] ? e.height[1] < form.heightMax : true) &&
-					// e.life_span[0] > e.years_of_life_min &&
-					// (e.life_span[1] ? e.life_span[1] < form.years_of_life_max : true)
+						(e.weight[1]
+							? e.weight[1] < form.weightMax
+							: e.weight[0] < form.weightMax) &&
+						e.height[0] > form.heightMin &&
+						(e.height[1]
+							? e.height[1] < form.heightMax
+							: e.height[0] < form.heightMax) &&
+						e.life_span[0] > form.years_of_life_min &&
+						(e.life_span[1]
+							? e.life_span[1] < form.years_of_life_max
+							: e.life_span[0] < form.years_of_life_max)
 				)
 			)
 		);
@@ -120,7 +110,7 @@ export default function Presentation() {
 						name: "weightMin",
 						setmid: "weightMid",
 						label: "Peso minimo",
-						min: 1,
+						min: 0.3,
 						max: form.weightMax,
 						value: form.weightMin,
 						action: onChanceStateInput,
@@ -163,7 +153,7 @@ export default function Presentation() {
 						name: "years_of_life_max",
 						label: "Años de vida máximo",
 						min: form.years_of_life_mid,
-						max: 25,
+						max: 30,
 						value: form.years_of_life_max,
 						action: onChanceStateInput,
 					},
@@ -171,7 +161,7 @@ export default function Presentation() {
 				action={onChanceStateInput}
 			/>
 			<Action action={(e) => console.log(form)} content={"Form"} />
-			<Action action={(e) => console.log(data)} content={"Data"} />
+			<Action action={(e) => console.log(data.filter)} content={"Data"} />
 			<Action action={(e) => submit(form)} content={"Buscar raza de perro"} />
 		</>
 	);
