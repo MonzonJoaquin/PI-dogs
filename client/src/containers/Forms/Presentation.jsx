@@ -19,9 +19,9 @@ export default function Presentation() {
 		years_of_life_min: 1,
 		years_of_life_max: 25,
 
-		weightMid: 60,
-		heightMid: 65,
-		years_of_life_mid: 12,
+		weightMid: 1,
+		heightMid: 1,
+		years_of_life_mid: 1,
 	});
 
 	const data = useSelector((state) => state.dogs);
@@ -62,11 +62,15 @@ export default function Presentation() {
 			data.list.filter(
 				(e) =>
 					e.weight[0] > form.weightMin &&
-					(e.weight[1] ? e.weight[1] < form.weightMax : true) &&
+					(e.weight[1]
+						? e.weight[1] < form.weightMax
+						: e.weight[0] < form.weightMax) &&
 					e.height[0] > form.heightMin &&
-					 (e.height[1] ? e.height[1] < form.heightMax : true) 
-					// e.life_span[0] > e.years_of_life_min &&
-					// (e.life_span[1] ? e.life_span[1] < form.years_of_life_max : true)
+					(e.height[1]
+						? e.height[1] < form.heightMax
+						: e.height[0] < form.heightMax) &&
+					 e.life_span[0] > form.years_of_life_min &&
+					(e.life_span[1] ? e.life_span[1] < form.years_of_life_max : e.life_span[0] < form.years_of_life_max)
 			)
 		);
 		dispatch(
@@ -74,11 +78,11 @@ export default function Presentation() {
 				data.list.filter(
 					(e) =>
 						e.weight[0] > form.weightMin &&
-						(e.weight[1] ? e.weight[1] < form.weightMax : true) 
-						// e.height[0] > form.heightMin &&
-						// (e.height[1] ? e.height[1] < form.heightMax : true) &&
-						// e.life_span[0] > e.years_of_life_min &&
-						// (e.life_span[1] ? e.life_span[1] < form.years_of_life_max : true)
+						(e.weight[1] ? e.weight[1] < form.weightMax : true)
+					// e.height[0] > form.heightMin &&
+					// (e.height[1] ? e.height[1] < form.heightMax : true) &&
+					// e.life_span[0] > e.years_of_life_min &&
+					// (e.life_span[1] ? e.life_span[1] < form.years_of_life_max : true)
 				)
 			)
 		);
