@@ -4,7 +4,7 @@ export default function Card({ elements }) {
 	// traer de Container un arreglo de objetos con propiedad (caracteristica del perro ej: altura, peso, etc) y su valor
 
 	return (
-		<>
+		<div>
 			{elements.map((e) => (
 				<div key={e.id} className="Card" style={{display: "inline"}}>
 					<h4>{e.name}</h4>
@@ -18,6 +18,6 @@ export default function Card({ elements }) {
 					))}
 				</div>
 			))}
-		</>
+		</div>
 	);
 }

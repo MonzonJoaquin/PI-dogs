@@ -7,21 +7,21 @@ import Action from "../Buttons/Action";
 export default function Presentation() {
 	//Estado local del form
 	const [form, setForm] = useState({
-		order: "Alf Desc",
+		order: "Alfabéticamente ascendente",
 		selection: "",
 
-		weightMin: 0.3,
+		weightMin: 0,
 		weightMax: 120,
 
-		heightMin: 0.15,
+		heightMin: 0,
 		heightMax: 110,
 
-		years_of_life_min: 0.5,
+		years_of_life_min: 0,
 		years_of_life_max: 30,
 
-		weightMid: 0.3,
-		heightMid: 0.3,
-		years_of_life_mid: 0.3,
+		weightMid: 0,
+		heightMid: 0,
+		years_of_life_mid: 0,
 	});
 
 	const data = useSelector((state) => state.dogs);
@@ -31,7 +31,7 @@ export default function Presentation() {
 		};
 	});
 
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
 
 	// Set state form
 	function onChanceStateInput(e) {
@@ -49,18 +49,115 @@ export default function Presentation() {
 			setForm({
 				...form,
 				[e.target.name]: Number.isNaN(Number(e.target.value))
-					? e.target.name
+					? e.target.value
 					: Number(e.target.value),
 			});
 		}
 	}
 
+	// Order function
+	const order = {
+		AlfDesc: function (a, b) {
+			if (a.id > b.id) {
+				return -1;
+			}
+			if (a.id < b.id) {
+				return 1;
+			}
+		},
+		AlfAsc: function (a, b) {
+			if (a.id > b.id) {
+				return 1;
+			}
+			if (a.id < b.id) {
+				return -1;
+			}
+		},
+		WeightDesc: function (a, b) {
+			if (a.weight[0] < b.weight[0]) {
+				return 1;
+			}
+			if (a.weight[0] > b.weight[0]) {
+				return -1;
+			}
+		},
+		WeightAsc: function (a, b) {
+			if (a.weight[0] < b.weight[0]) {
+				return -1;
+			}
+			if (a.weight[0] > b.weight[0]) {
+				return 1;
+			}
+		},
+		HeightDesc: function (a, b) {
+			if (a.height[0] < b.height[0]) {
+				return 1;
+			}
+			if (a.height[0] > b.height[0]) {
+				return -1;
+			}
+		},
+		HeightAsc: function (a, b) {
+			if (a.height[0] < b.height[0]) {
+				return -1;
+			}
+			if (a.height[0] > b.height[0]) {
+				return 1;
+			}
+		},
+		LifeSpanDesc: function (a, b) {
+			if (a.life_span[0] < b.life_span[0]) {
+				return 1;
+			}
+			if (a.life_span[0] > b.life_span[0]) {
+				return -1;
+			}
+		},
+		LifeSpanAsc: function (a, b) {
+			if (a.life_span[0] < b.life_span[0]) {
+				return -1;
+			}
+			if (a.life_span[0] > b.life_span[0]) {
+				return 1;
+			}
+		},
+	};
+
+/**
+ * 							{ value: "Alfabéticamente descendente" },
+							{ value: "Alfabéticamente ascendente" },
+							{ value: "Peso descendente" },
+							{ value: "Peso ascendente" },
+							{ value: "Altura descendente" },
+							{ value: "Altura ascendente" },
+							{ value: "Longevidad  descendente" },
+							{ value: "Longevidad ascendente" },
+ * 
+ */
+
 	//filter y ordenamiento
 	function submit(form) {
+		let comparation;
+
+		switch (form.order) {
+			case "Alfabéticamente descendente": comparation = order.AlfDesc; break
+			case "Alfabéticamente ascendente": comparation = order.AlfAsc; break
+			case "Peso descendente": comparation = order.WeightDesc; break
+			case "Peso ascendente": comparation = order.WeightAsc; break
+			case "Altura descendente": comparation = order.HeightDesc; break
+			case "Altura ascendente": comparation = order.HeightAsc; break
+			case "Longevidad descendente": comparation = order.LifeSpanDesc; break
+			case "Longevidad ascendente": comparation = order.LifeSpanAsc; break
+			default:
+		}
+
 		dispatch(
 			setDogsFilter(
-				data.filter.filter(
+				data.list.filter(
 					(e) =>
+						(form.selection
+							? e.name.startsWith(form.selection.toLowerCase())
+							: true) &&
 						e.weight[0] > form.weightMin &&
 						(e.weight[1]
 							? e.weight[1] < form.weightMax
@@ -73,10 +170,12 @@ export default function Presentation() {
 						(e.life_span[1]
 							? e.life_span[1] < form.years_of_life_max
 							: e.life_span[0] < form.years_of_life_max)
-				)
+				).sort(comparation)
 			)
 		);
 	}
+
+
 
 	// form.selection?e.name.toLowerCase().includes(form.selection.toLowerCase()):true
 	return (
@@ -88,10 +187,14 @@ export default function Presentation() {
 						name: "order",
 						text: "Seleccione un orden de listado",
 						options: [
-							{ value: "Alf Desc" },
-							{ value: "Alf Asc" },
-							{ value: "Peso Asc" },
-							{ value: "Peso Desc" },
+							{ value: "Alfabéticamente ascendente" },
+							{ value: "Alfabéticamente descendente" },
+							{ value: "Peso descendente" },
+							{ value: "Peso ascendente" },
+							{ value: "Altura descendente" },
+							{ value: "Altura ascendente" },
+							{ value: "Longevidad descendente" },
+							{ value: "Longevidad ascendente" },
 						],
 						action: onChanceStateInput,
 					},
@@ -110,7 +213,7 @@ export default function Presentation() {
 						name: "weightMin",
 						setmid: "weightMid",
 						label: "Peso minimo",
-						min: 0.3,
+						min: 0,
 						max: form.weightMax,
 						value: form.weightMin,
 						action: onChanceStateInput,
@@ -127,7 +230,7 @@ export default function Presentation() {
 						name: "heightMin",
 						setmid: "heightMid",
 						label: "Altura minima",
-						min: 0.15,
+						min: 0,
 						max: form.heightMax,
 						value: form.heightMin,
 						action: onChanceStateInput,
@@ -144,7 +247,7 @@ export default function Presentation() {
 						name: "years_of_life_min",
 						setmid: "years_of_life_mid",
 						label: "Años de vida minimo",
-						min: 1,
+						min: 0,
 						max: form.years_of_life_max,
 						value: form.years_of_life_min,
 						action: onChanceStateInput,
@@ -161,7 +264,11 @@ export default function Presentation() {
 				action={onChanceStateInput}
 			/>
 			<Action action={(e) => console.log(form)} content={"Form"} />
-			<Action action={(e) => console.log(data.filter)} content={"Data"} />
+			<Action action={(e) => console.log(data.list)} content={"Data list"} />
+			<Action
+				action={(e) => console.log(data.filter)}
+				content={"Data filter"}
+			/>
 			<Action action={(e) => submit(form)} content={"Buscar raza de perro"} />
 		</>
 	);
