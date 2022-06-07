@@ -1,3 +1,4 @@
+const { get } = require("express/lib/response");
 const { DataTypes } = require("sequelize");
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
@@ -21,11 +22,27 @@ module.exports = (sequelize) => {
 			},
 			weight: {
 				type: DataTypes.STRING,
-				allowNull: null,
+				allowNull: false,
 			},
-			years_of_life: {
+			life_span: {
 				type: DataTypes.STRING,
+				allowNull: false
 			},
+			breedGroup: {
+				type: DataTypes.STRING,
+				defaultValue: "No pertenece a ninguna"
+			},
+			image: {
+				type: DataTypes.STRING,
+				allowNull: false
+			},
+			createdInDB: {
+				type: DataTypes.VIRTUAL,
+				defaultValue: true,
+				get(){
+					return true
+				}
+			}
 		},
 		{
 			timestamps: false,
@@ -34,7 +51,7 @@ module.exports = (sequelize) => {
 };
 
 /*
-ID *
+ 	D *
 Nombre *
 Altura *
 Peso *

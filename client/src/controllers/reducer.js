@@ -5,7 +5,8 @@ export const dogs = createSlice({
   name: "dogs",
   initialState: {
     list: [],
-    filter: []
+    filter: [],
+    temperament: []
   },
   reducers:{
     setDogsList: (state, action) => {
@@ -13,11 +14,14 @@ export const dogs = createSlice({
     },
     setDogsFilter: (state, action) => {
       state.filter = action.payload
-    }
+    },
+    setTemperaments: (state, action) => {
+      state.temperament = action.payload
+    },
   }
 })
 
-export const {setDogsList, setDogsFilter} = dogs.actions
+export const {setDogsList, setDogsFilter, setTemperaments} = dogs.actions
 
 
 export default dogs.reducer

@@ -4,15 +4,12 @@ import Directional from "../../containers/Buttons/Directional";
 
 import img_dog from "../../../src/assets/dog.png";
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { fetchAllDogs } from '../../controllers/action'
-import { setDogsFilter } from "../../controllers/reducer";
 
 export default function Home_page() {
 	
 	const dispatch = useDispatch()
-
-	const data = useSelector(state => state.dogs.list)
 
 	useEffect(() => {
 		dispatch(fetchAllDogs())

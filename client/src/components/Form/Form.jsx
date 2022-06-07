@@ -6,10 +6,13 @@ export default class Form extends Component {
 		this.state = {
 			inputText: this.props.inputText ? this.props.inputText : null,
 			inputDatalist: this.props.inputDatalist ? this.props.inputDatalist : null,
-			inputSelection: this.props.inputSelection? this.props.inputSelection: null,
+			inputSelection: this.props.inputSelection
+				? this.props.inputSelection
+				: null,
 			inputRadio: this.props.inputRadio ? this.props.inputRadio : null,
 			inputCheck: this.props.inputCheck ? this.props.inputCheck : null,
 			inputRange: this.props.inputRange ? this.props.inputRange : null,
+			inputURL: this.props.inputURL ? this.props.inputURL : null,
 		};
 	}
 	render() {
@@ -20,7 +23,13 @@ export default class Form extends Component {
 							return (
 								<div key={i}>
 									<label>{e.label}</label>
-									<input name={e.name} type={"text"} onChange={(event) => {e.action(event)}}/>
+									<input
+										name={e.name}
+										type={"text"}
+										onChange={(event) => {
+											e.action(event);
+										}}
+									/>
 								</div>
 							);
 					  })
@@ -29,11 +38,18 @@ export default class Form extends Component {
 					? this.props.inputDatalist.map((e, i) => {
 							return (
 								<div key={i}>
-									<label htmlFor={e.id} > {e.text} </label>
-									<input type="text" list={e.id} name={e.name} onChange={(event) => {e.action(event)}}/>
-									<datalist id={e.id} >
+									<label htmlFor={e.id}> {e.text} </label>
+									<input
+										type="text"
+										list={e.id}
+										name={e.name}
+										onChange={(event) => {
+											e.action(event);
+										}}
+									/>
+									<datalist id={e.id}>
 										{e.options.map((e) => (
-											<option key={e.value} value={e.value} >
+											<option key={e.value} value={e.value}>
 												{" "}
 												{e.value}{" "}
 											</option>
@@ -48,7 +64,13 @@ export default class Form extends Component {
 							return (
 								<div key={i}>
 									<label htmlFor={e.id}> {e.text} </label>
-									<select id={e.id}  name={e.name} onChange={(event) => {e.action(event)}}>
+									<select
+										id={e.id}
+										name={e.name}
+										onChange={(event) => {
+											e.action(event);
+										}}
+									>
 										{e.options.map((e) => (
 											<option key={e.value} value={e.value}>
 												{e.value}
@@ -95,6 +117,16 @@ export default class Form extends Component {
 									/>
 									{/* <input name={e.name} type={"number"} min={e.min} max={e.max} value={e.value} onChange={(event) => e.action(event)}/> */}
 									<span>{e.value}</span>
+								</div>
+							);
+					  })
+					: null}
+				{this.props.inputURL
+					? this.props.inputURL.map((e, i) => {
+							return (
+								<div key={i}>
+									<label htmlFor={e.name}> {e.text} </label>
+									<input type="url" name={e.name} id={e.id} onChange={e.action}/>
 								</div>
 							);
 					  })

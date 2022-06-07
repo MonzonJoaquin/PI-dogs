@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "../../components/Form/Form";
 import { setDogsFilter } from "../../controllers/reducer";
@@ -11,17 +11,15 @@ export default function Presentation() {
 		selection: "",
 
 		weightMin: 0,
-		weightMax: 120,
+		weightMax: 90,
 
 		heightMin: 0,
-		heightMax: 110,
+		heightMax: 80,
 
 		years_of_life_min: 0,
-		years_of_life_max: 30,
+		years_of_life_max: 20,
 
-		weightMid: 0,
-		heightMid: 0,
-		years_of_life_mid: 0,
+		created: "API y DB",
 	});
 
 	const data = useSelector((state) => state.dogs);
@@ -35,33 +33,21 @@ export default function Presentation() {
 
 	// Set state form
 	function onChanceStateInput(e) {
-		if (e.target.dataset.setmid) {
-			setForm({
-				...form,
-				[e.target.name]: Number.isNaN(Number(e.target.value))
-					? e.target.name
-					: Number(e.target.value),
-				[e.target.dataset.setmid]: Number.isNaN(Number(e.target.value))
-					? e.target.name
-					: Number(e.target.value),
-			});
-		} else {
 			setForm({
 				...form,
 				[e.target.name]: Number.isNaN(Number(e.target.value))
 					? e.target.value
 					: Number(e.target.value),
 			});
-		}
 	}
 
 	// Order function
 	const order = {
 		AlfDesc: function (a, b) {
-			if (a.id > b.id) {
+			if (a.name > b.name) {
 				return -1;
 			}
-			if (a.id < b.id) {
+			if (a.name < b.name) {
 				return 1;
 			}
 		},
@@ -123,59 +109,56 @@ export default function Presentation() {
 		},
 	};
 
-/**
- * 							{ value: "Alfabéticamente descendente" },
-							{ value: "Alfabéticamente ascendente" },
-							{ value: "Peso descendente" },
-							{ value: "Peso ascendente" },
-							{ value: "Altura descendente" },
-							{ value: "Altura ascendente" },
-							{ value: "Longevidad  descendente" },
-							{ value: "Longevidad ascendente" },
- * 
- */
-
 	//filter y ordenamiento
 	function submit(form) {
 		let comparation;
 
 		switch (form.order) {
-			case "Alfabéticamente descendente": comparation = order.AlfDesc; break
-			case "Alfabéticamente ascendente": comparation = order.AlfAsc; break
-			case "Peso descendente": comparation = order.WeightDesc; break
-			case "Peso ascendente": comparation = order.WeightAsc; break
-			case "Altura descendente": comparation = order.HeightDesc; break
-			case "Altura ascendente": comparation = order.HeightAsc; break
-			case "Longevidad descendente": comparation = order.LifeSpanDesc; break
-			case "Longevidad ascendente": comparation = order.LifeSpanAsc; break
+			case "Alfabéticamente descendente":
+				comparation = order.AlfDesc;
+				break;
+			case "Alfabéticamente ascendente":
+				comparation = order.AlfAsc;
+				break;
+			case "Peso descendente":
+				comparation = order.WeightDesc;
+				break;
+			case "Peso ascendente":
+				comparation = order.WeightAsc;
+				break;
+			case "Altura descendente":
+				comparation = order.HeightDesc;
+				break;
+			case "Altura ascendente":
+				comparation = order.HeightAsc;
+				break;
+			case "Longevidad descendente":
+				comparation = order.LifeSpanDesc;
+				break;
+			case "Longevidad ascendente":
+				comparation = order.LifeSpanAsc;
+				break;
 			default:
 		}
 
 		dispatch(
 			setDogsFilter(
-				data.list.filter(
-					(e) =>
-						(form.selection
-							? e.name.startsWith(form.selection.toLowerCase())
-							: true) &&
-						e.weight[0] > form.weightMin &&
-						(e.weight[1]
-							? e.weight[1] < form.weightMax
-							: e.weight[0] < form.weightMax) &&
-						e.height[0] > form.heightMin &&
-						(e.height[1]
-							? e.height[1] < form.heightMax
-							: e.height[0] < form.heightMax) &&
-						e.life_span[0] > form.years_of_life_min &&
-						(e.life_span[1]
-							? e.life_span[1] < form.years_of_life_max
-							: e.life_span[0] < form.years_of_life_max)
-				).sort(comparation)
+				data.list
+					.filter(
+						(e) =>
+							(form.selection? e.name.startsWith(form.selection.toLowerCase()): true) &&
+							(form.created === "API y DB"?true:form.created==="Solo API"?e.createdInDB!==true:e.createdInDB===true) &&	
+							e.weight[0] > form.weightMin &&
+							(e.weight[1]? e.weight[1] < form.weightMax: e.weight[0] < form.weightMax) &&
+							e.height[0] > form.heightMin &&
+							(e.height[1]? e.height[1] < form.heightMax: e.height[0] < form.heightMax) &&
+							e.life_span[0] > form.years_of_life_min &&
+							(e.life_span[1]? e.life_span[1] < form.years_of_life_max: e.life_span[0] < form.years_of_life_max)
+					)
+					.sort(comparation)
 			)
 		);
 	}
-
-
 
 	// form.selection?e.name.toLowerCase().includes(form.selection.toLowerCase()):true
 	return (
@@ -195,6 +178,17 @@ export default function Presentation() {
 							{ value: "Altura ascendente" },
 							{ value: "Longevidad descendente" },
 							{ value: "Longevidad ascendente" },
+						],
+						action: onChanceStateInput,
+					},
+					{
+						id: "created",
+						name: "created",
+						text: "Seleccione el filtro de creación",
+						options: [
+							{ value: "API y DB" },
+							{ value: "Solo API" },
+							{ value: "Solo DB" },
 						],
 						action: onChanceStateInput,
 					},
@@ -221,8 +215,8 @@ export default function Presentation() {
 					{
 						name: "weightMax",
 						label: "Peso máximo",
-						min: form.weightMid,
-						max: 120,
+						min: form.weightMin,
+						max: 90,
 						value: form.weightMax,
 						action: onChanceStateInput,
 					},
@@ -238,8 +232,8 @@ export default function Presentation() {
 					{
 						name: "heightMax",
 						label: "Altura máxima",
-						min: form.heightMid,
-						max: 110,
+						min: form.heightMin,
+						max: 80,
 						value: form.heightMax,
 						action: onChanceStateInput,
 					},
@@ -255,8 +249,8 @@ export default function Presentation() {
 					{
 						name: "years_of_life_max",
 						label: "Años de vida máximo",
-						min: form.years_of_life_mid,
-						max: 30,
+						min: form.years_of_life_min,
+						max: 20,
 						value: form.years_of_life_max,
 						action: onChanceStateInput,
 					},

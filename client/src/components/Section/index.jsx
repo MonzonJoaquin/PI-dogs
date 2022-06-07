@@ -5,14 +5,14 @@ export default function Card({ elements }) {
 
 	return (
 		<div>
-			{elements.map((e) => (
+			{elements?.map((e) => (
 				<div key={e.id} className="Card" style={{display: "inline"}}>
 					<h4>{e.name}</h4>
 					<img src={e.image} alt="Imagen ilustrativa de la raza del perro" style={{height: "100px"}}/>
 					{e.attributes.map((e, i) => (
 						<div key={i}>
 							<p>
-								{e[0]} = <span>{e[1]}</span>
+								{e[0]} = <span>{e[1]}{e[2]}</span>
 							</p>
 						</div>
 					))}
