@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom'
 import Button from "../../components/Button/index"
 
 
-export default function Directional({direction}) {
+export default function Directional({direction, styles}) {
   return (
-    <Button content={<Link to={direction}>Ingresar</Link>} />
+    
+    <Link to={direction}><Button styles={styles} content={"Ingresar"} /></Link>
   )
 }
 

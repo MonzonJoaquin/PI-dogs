@@ -28,9 +28,9 @@ export default function Cards() {
 	});
 
 	return (
-		<>
+		<div>
 			{restructuring[0] ? (<Card elements={restructuring} />) : (<h4>Cargando...</h4>)}
 			<Paginated max={data.filter.length} page={8} action={setIndex} />
-		</>
+		</div>
 	);
 }

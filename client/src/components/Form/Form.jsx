@@ -37,7 +37,7 @@ export default class Form extends Component {
 				{this.props.inputDatalist
 					? this.props.inputDatalist.map((e, i) => {
 							return (
-								<div key={i}>
+								<div key={i} className={e.style}>
 									<label htmlFor={e.id}> {e.text} </label>
 									<input
 										type="text"
@@ -62,7 +62,7 @@ export default class Form extends Component {
 				{this.props.inputSelection
 					? this.props.inputSelection.map((e, i) => {
 							return (
-								<div key={i}>
+								<div key={i} className={e.style}>
 									<label htmlFor={e.id}> {e.text} </label>
 									<select
 										id={e.id}
@@ -104,7 +104,7 @@ export default class Form extends Component {
 				{this.props.inputRange
 					? this.props.inputRange.map((e, i) => {
 							return (
-								<div key={i}>
+								<div key={i} className={e.style}>
 									<label htmlFor={e.id}>{e.label}</label>
 									<input
 										name={e.name}

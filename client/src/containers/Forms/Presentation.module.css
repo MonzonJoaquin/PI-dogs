@@ -1,0 +1,47 @@
+.form {
+  display: grid;
+  grid-template-columns: 0.5fr repeat(3, 1fr) 0.5fr;
+  grid-template-rows: repeat(9, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.datalist {
+  grid-area: 1 / 2 / 2 / 5;
+}
+
+.selection {
+  grid-area: 2 / 2 / 3 / 5;
+}
+
+.created {
+  grid-area: 3 / 2 / 4 / 5;
+}
+
+.weightMin {
+  grid-area: 4 / 2 / 5 / 5;
+}
+
+.weightMax {
+  grid-area: 5 / 2 / 6 / 5;
+}
+
+.heightMin {
+  grid-area: 6 / 2 / 7 / 5;
+}
+
+.heightMax {
+  grid-area: 7 / 2 / 8 / 5;
+}
+
+.lifeSpanMin {
+  grid-area: 8 / 2 / 9 / 5;
+}
+
+.lifeSpanMax {
+  grid-area: 9 / 2 / 10 / 5;
+}
+
+.submit {
+  grid-area: 10 / 3 / 11 / 4;
+}

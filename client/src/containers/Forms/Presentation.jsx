@@ -4,6 +4,8 @@ import Form from "../../components/Form/Form";
 import { setDogsFilter } from "../../controllers/reducer";
 import Action from "../Buttons/Action";
 
+import styles from "./Presentation.module.css"
+
 export default function Presentation() {
 	//Estado local del form
 	const [form, setForm] = useState({
@@ -162,7 +164,7 @@ export default function Presentation() {
 
 	// form.selection?e.name.toLowerCase().includes(form.selection.toLowerCase()):true
 	return (
-		<>
+		<div className={styles.form}>
 			<Form
 				inputSelection={[
 					{
@@ -180,6 +182,7 @@ export default function Presentation() {
 							{ value: "Longevidad ascendente" },
 						],
 						action: onChanceStateInput,
+						style: styles.selection
 					},
 					{
 						id: "created",
@@ -191,6 +194,7 @@ export default function Presentation() {
 							{ value: "Solo DB" },
 						],
 						action: onChanceStateInput,
+						style: styles.created
 					},
 				]}
 				inputDatalist={[
@@ -200,6 +204,7 @@ export default function Presentation() {
 						text: "Razas disponibles",
 						options: restructuring,
 						action: onChanceStateInput,
+						style: styles.datalist
 					},
 				]}
 				inputRange={[
@@ -211,6 +216,7 @@ export default function Presentation() {
 						max: form.weightMax,
 						value: form.weightMin,
 						action: onChanceStateInput,
+						style: styles.weightMin
 					},
 					{
 						name: "weightMax",
@@ -219,6 +225,7 @@ export default function Presentation() {
 						max: 90,
 						value: form.weightMax,
 						action: onChanceStateInput,
+						style: styles.weightMax
 					},
 					{
 						name: "heightMin",
@@ -228,6 +235,7 @@ export default function Presentation() {
 						max: form.heightMax,
 						value: form.heightMin,
 						action: onChanceStateInput,
+						style: styles.heightMin
 					},
 					{
 						name: "heightMax",
@@ -236,6 +244,7 @@ export default function Presentation() {
 						max: 80,
 						value: form.heightMax,
 						action: onChanceStateInput,
+						style: styles.heightMax
 					},
 					{
 						name: "years_of_life_min",
@@ -245,6 +254,7 @@ export default function Presentation() {
 						max: form.years_of_life_max,
 						value: form.years_of_life_min,
 						action: onChanceStateInput,
+						style: styles.lifeSpanMin
 					},
 					{
 						name: "years_of_life_max",
@@ -253,18 +263,13 @@ export default function Presentation() {
 						max: 20,
 						value: form.years_of_life_max,
 						action: onChanceStateInput,
+						style: styles.lifeSpanMax
 					},
 				]}
 				action={onChanceStateInput}
 			/>
-			<Action action={(e) => console.log(form)} content={"Form"} />
-			<Action action={(e) => console.log(data.list)} content={"Data list"} />
-			<Action
-				action={(e) => console.log(data.filter)}
-				content={"Data filter"}
-			/>
-			<Action action={(e) => submit(form)} content={"Buscar raza de perro"} />
-		</>
+			<Action action={(e) => submit(form)} content={"Buscar raza de perro"} style={styles.submit}/>
+		</div>
 	);
 }
 

@@ -5,6 +5,19 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #019DCE;
+  background: -moz-linear-gradient(top, #019DCE 0%, #468AA4 0%, #929041 100%);
+  background: -webkit-linear-gradient(top, #019DCE 0%, #468AA4 0%, #929041 100%);
+  background: linear-gradient(to bottom, #019DCE 0%, #468AA4 0%, #929041 100%);
+  min-height: 100vh;
+
+}
+
+.main{
+  min-height: 100vh;
+  margin: 0; 
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
 
 code {
