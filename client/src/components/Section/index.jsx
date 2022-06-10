@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Card({ elements, styles }) {
 	// traer de Container un arreglo de objetos con propiedad (caracteristica del perro ej: altura, peso, etc) y su valor
@@ -8,8 +9,7 @@ export default function Card({ elements, styles }) {
 			{elements?.map((e, i) => (
 				<div key={e.id} className={styles.card}>
 					<div>
-						<img src={e.image} alt="Imagen ilustrativa de la raza del perro" />
-
+						<Link to={elements.length>1?`detail/${e.id}`:''} > <img src={e.image}  alt="Imagen ilustrativa de la raza del perro" /></Link>
 					</div>
 					<h4 className={styles.name}>{e.name}</h4>
 					<div className={styles.props}>

@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import Card from "../components/Section/"
 import { fetchAllDogs } from '../controllers/action'
 
+import styles from '../containers/Sections/Cards.module.css'
 
 export default function DetailBreed_page() {
 
@@ -32,8 +33,8 @@ export default function DetailBreed_page() {
 	});
 
 	return (
-		<main>
-			<Card elements={dog ? dog : []} />
+		<main className={styles.cards}>
+			<Card elements={dog ? dog : []} styles={styles}/>
 		</main>
 	)
 }

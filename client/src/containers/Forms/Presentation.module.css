@@ -58,40 +58,45 @@ input {
   grid-area: 1 / 2 / 2 / 5;
 }
 
+
 .selection {
   grid-area: 2 / 2 / 3 / 5;
 }
 
-.created {
+.temperament {
   grid-area: 3 / 2 / 4 / 5;
 }
 
-.weightMin {
+.created {
   grid-area: 4 / 2 / 5 / 5;
 }
 
-.weightMax {
+.weightMin {
   grid-area: 5 / 2 / 6 / 5;
 }
 
-.heightMin {
+.weightMax {
   grid-area: 6 / 2 / 7 / 5;
 }
 
-.heightMax {
+.heightMin {
   grid-area: 7 / 2 / 8 / 5;
 }
 
-.lifeSpanMin {
+.heightMax {
   grid-area: 8 / 2 / 9 / 5;
 }
 
-.lifeSpanMax {
+.lifeSpanMin {
   grid-area: 9 / 2 / 10 / 5;
 }
 
+.lifeSpanMax {
+  grid-area: 10 / 2 / 11 / 5;
+}
+
 .submit {
-  grid-area: 10 / 3 / 11 / 4;
+  grid-area: 11 / 3 / 12 / 4;
   color: #090909;
   padding: 0.5em;
   font-size: 1em;

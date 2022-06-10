@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import redux
-import { fetchAllDogs } from '../controllers/action'
+import { fetchAllDogs, fetchAllTemperaments } from '../controllers/action'
 
 //Presentation
 import Presentation from '../containers/Forms/Presentation'
@@ -17,6 +17,7 @@ class Main_page extends Component {
   componentDidMount(){
     if (!this.props.dogs.list[0]) {
       this.props.fetchAllDogs()
+      this.props.fetchAllTemperaments()
     }
   }
   render() {
@@ -35,7 +36,8 @@ class Main_page extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchAllDogs: () => dispatch(fetchAllDogs())
+    fetchAllDogs: () => dispatch(fetchAllDogs()),
+    fetchAllTemperaments: () => dispatch(fetchAllTemperaments())
   }
 }
 

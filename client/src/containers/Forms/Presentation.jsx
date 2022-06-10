@@ -11,7 +11,7 @@ export default function Presentation() {
 	const [form, setForm] = useState({
 		order: "Alfabéticamente ascendente",
 		selection: "",
-
+		temperament: 'All',
 		weightMin: 0,
 		weightMax: 100,
 
@@ -30,7 +30,12 @@ export default function Presentation() {
 			value: e.name,
 		};
 	});
-
+	let temperaments = data.temperament.map((e) => {
+		return {
+			value: e.name,
+		};
+	})
+	temperaments.unshift({value: 'All'});
 	const dispatch = useDispatch();
 
 	// Set state form
@@ -148,6 +153,7 @@ export default function Presentation() {
 				data.list
 					.filter(
 						(e) =>
+							(form.temperament==='All'?true:e.temperament?.includes(form.temperament)) &&
 							(form.selection? e.name.startsWith(form.selection.toLowerCase()): true) &&
 							(form.created === "API y DB"?true:form.created==="Solo API"?e.createdInDB!==true:e.createdInDB===true) &&	
 							e.weight[0] > form.weightMin &&
@@ -183,6 +189,14 @@ export default function Presentation() {
 						],
 						action: onChanceStateInput,
 						style: styles.selection
+					},
+					{
+						id: "Temperament",
+						name: "temperament",
+						text: "Temperamentos",
+						options: temperaments,
+						action: onChanceStateInput,
+						style: styles.temperament
 					},
 					{
 						id: "created",
