@@ -6,8 +6,8 @@ async function getAllDogs(req, res, next) {
 	let dogs = await axios.get("https://api.thedogapi.com/v1/breeds");
 	try {
 		if (name) {
-			dogs = dogs.data.filter((e) => e.name === name);
-			dogs.length
+			dogs = dogs.data.filter((e) => e.name.toLowerCase().startsWith(name.toLowerCase()));
+			dogs
 				? res.json(dogs)
 				: next({ status: 404, message: "No se encontró la raza especificada" });
 		} else {

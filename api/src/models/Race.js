@@ -1,4 +1,3 @@
-const { get } = require("express/lib/response");
 const { DataTypes } = require("sequelize");
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
@@ -14,7 +13,10 @@ module.exports = (sequelize) => {
 			name: {
 				type: DataTypes.STRING,
 				allowNull: false,
-				unique: true
+				unique: true,
+				validate: {
+					is: /^[a-zA-Z\s.]*$/
+				}
 			},
 			height: {
 				type: DataTypes.STRING,
@@ -26,7 +28,7 @@ module.exports = (sequelize) => {
 			},
 			life_span: {
 				type: DataTypes.STRING,
-				allowNull: false
+				allowNull: false,
 			},
 			breedGroup: {
 				type: DataTypes.STRING,

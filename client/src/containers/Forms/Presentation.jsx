@@ -7,6 +7,10 @@ import Action from "../Buttons/Action";
 import styles from "./Presentation.module.css"
 
 export default function Presentation() {
+
+	const dispatch = useDispatch();
+	const data = useSelector((state) => state.dogs);
+
 	//Estado local del form
 	const [form, setForm] = useState({
 		order: "Alfabéticamente ascendente",
@@ -24,7 +28,7 @@ export default function Presentation() {
 		created: "API y DB",
 	});
 
-	const data = useSelector((state) => state.dogs);
+	//Restructuracion del estado global
 	let restructuring = data.list.map((e) => {
 		return {
 			value: e.name,
@@ -36,7 +40,7 @@ export default function Presentation() {
 		};
 	})
 	temperaments.unshift({value: 'All'});
-	const dispatch = useDispatch();
+	
 
 	// Set state form
 	function onChanceStateInput(e) {
@@ -282,7 +286,7 @@ export default function Presentation() {
 				]}
 				action={onChanceStateInput}
 			/>
-			<Action action={(e) => { submit(form)}} content={"Buscar perros"} style={styles.submit}/>
+			<Action action={() => { submit(form)}} content={"Buscar perros"} style={styles.submit}/>
 		</div>
 	);
 }

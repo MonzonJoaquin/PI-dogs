@@ -14,7 +14,8 @@ export default function DetailBreed_page() {
 		dispatch(fetchAllDogs())
 	}, [dispatch])
 
-	let { id } = useParams()
+	let { id, name } = useParams()
+	console.log(name);
 	const data = useSelector(state => state.dogs)
 	console.log(id, data);
 	const dog = data.list.filter(e => e.id === Number(id) || e.id === id).map((e) => {
