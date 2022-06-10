@@ -5,11 +5,11 @@ import Error from "../../components/MsgError/Error.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllDogs, postDogInDb } from "../../controllers/action";
 
+import Styles from './CreateBreed.module.css'
+
 export default function CreateBreed() {
 	const dispatch = useDispatch();
-
-	//Estado local del form
-	const [form, setForm] = useState({
+	const init = {
 		nameBreed: "",
 		breedGroup: "No pertenece a ninguna",
 		temperament: "Stubborn",
@@ -23,8 +23,10 @@ export default function CreateBreed() {
 
 		years_of_life_min: 1,
 		years_of_life_max: 20,
-	});
-
+	}
+	//Estado local del form
+	const [form, setForm] = useState(init);
+	
 	//Estado local de error del form
 	const [error, setError] = useState({});
 
@@ -39,6 +41,7 @@ export default function CreateBreed() {
 		};
 	});
 
+	console.log(listTemperaments);
 	// Set state form
 	function onChanceStateInput(e) {
 		setForm({ ...form, [e.target.name]: e.target.value });
@@ -47,7 +50,6 @@ export default function CreateBreed() {
 
 	//set state temperament
 	function pushTemperament(e) {
-		console.log(e);
 		setForm({
 			...form,
 			temperaments: form.temperaments.includes(e)
@@ -122,15 +124,17 @@ export default function CreateBreed() {
 	function submitForm(e) {
 		e.preventDefault();
 		if (validate) {
+			console.log(form.temperaments);
 			postDogInDb(form);
 			dispatch(fetchAllDogs());
 		} else {
-			console.log("Algo salio mal");
+			alert('Valor incorrecto')
 		}
 	}
 
-	return (
-		<>
+	return (<>
+		<h2>Cree su propia raza de perro</h2>
+		<div className={Styles.container}>
 			<Form
 				inputText={[
 					{
@@ -225,29 +229,26 @@ export default function CreateBreed() {
 				active={validate}
 			/>
 			<Action
-				action={(e) => submitForm(e)}
+				action={(e) => {submitForm(e); setForm(init)}}
 				content={"Crear raza de perro"}
-				active={validate}
-			/>
-			<Action
-				action={(e) => console.log(form)}
-				content={"Log form"}
 				active={validate}
 			/>
 			<div>
 				{form.temperaments[0]
-					? form.temperaments.map((e, i) => <span key={i}> {e} </span>)
+					? form.temperaments.map((e, i) => <span key={i}>| {e} |</span>)
 					: null}
 			</div>
 			{!validate
 				? Object.values(error)
-						.filter((e) => typeof e !== "object")
-						.map((e, i) => (
-							<div key={i}>
-								<Error msgError={e} />
-							</div>
-						))
+					.filter((e) => typeof e !== "object")
+					.map((e, i) => (
+						<div key={i}>
+							<Error msgError={e} />
+						</div>
+					))
 				: null}
-		</>
+		</div>
+		<button onClick={() => console.log(form)} >aaaa</button>
+	</>
 	);
 }

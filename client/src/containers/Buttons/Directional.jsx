@@ -7,7 +7,7 @@ import Button from "../../components/Button/index"
 export default function Directional({direction, styles}) {
   return (
     
-    <Link to={direction}><Button styles={styles} content={"Ingresar"} /></Link>
+    <Link to={direction}><Button style={styles} content={"Ingresar"} /></Link>
   )
 }
 

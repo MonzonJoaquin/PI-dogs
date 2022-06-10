@@ -1,0 +1,92 @@
+.cards {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(4, auto);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    width: 100%;
+    justify-content: center;
+    padding: 10px 0px;
+
+}
+
+.card {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-row-gap: 0px;
+    position: relative;
+    left: 10px;
+    box-shadow: 17px 6px 0px -4px rgba(0, 0, 0, 0.08);
+    -webkit-box-shadow: 17px 6px 0px -4px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: 17px 6px 0px -4px rgba(0, 0, 0, 0.08);
+    border: 11px ridge #942929;
+    border-radius: 0px 0px 55px 55px;
+    margin: 0px 10px 0 10px;
+    background-color: rgba(0, 0, 0, 0.245);
+
+    justify-content: center;
+    justify-items: center;
+    margin: 10px;
+}
+
+.card div {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, auto);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    box-sizing: inherit;
+
+
+    border-bottom: 0px;
+
+}
+
+.card div+div {
+    border-top: 0px;
+    border-radius: 0px 0px 55px 55px;
+
+}
+
+.card div img {
+    position: relative;
+    top: 0px;
+    width: auto;
+    height: 300px;
+    margin: auto;
+    border: 5px ridge #942929;
+    border-top: 0px;
+}
+
+.cards .props {
+    width: 300px;
+    text-align: center;
+    height: 300px;
+}
+
+
+
+.cards .props span,
+p {
+    color: azure;
+    text-align: center;
+    font-size: 16px;
+    letter-spacing: 1px;
+    margin: auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.card .name {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    letter-spacing: 2px;
+    word-spacing: -0.8px;
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: underline solid rgb(0, 0, 0);;
+    font-style: normal;
+    font-variant: small-caps;
+    text-transform: none;
+    margin: 0px;
+}

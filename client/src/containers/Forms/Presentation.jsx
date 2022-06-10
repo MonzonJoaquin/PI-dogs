@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "../../components/Form/Form";
-import { setDogsFilter } from "../../controllers/reducer";
+import { restartCurrent, setDogsFilter } from "../../controllers/reducer";
 import Action from "../Buttons/Action";
 
 import styles from "./Presentation.module.css"
@@ -13,13 +13,13 @@ export default function Presentation() {
 		selection: "",
 
 		weightMin: 0,
-		weightMax: 90,
+		weightMax: 100,
 
 		heightMin: 0,
-		heightMax: 80,
+		heightMax: 100,
 
 		years_of_life_min: 0,
-		years_of_life_max: 20,
+		years_of_life_max: 25,
 
 		created: "API y DB",
 	});
@@ -160,9 +160,9 @@ export default function Presentation() {
 					.sort(comparation)
 			)
 		);
+		dispatch(restartCurrent())
 	}
 
-	// form.selection?e.name.toLowerCase().includes(form.selection.toLowerCase()):true
 	return (
 		<div className={styles.form}>
 			<Form
@@ -222,7 +222,7 @@ export default function Presentation() {
 						name: "weightMax",
 						label: "Peso máximo",
 						min: form.weightMin,
-						max: 90,
+						max: 100,
 						value: form.weightMax,
 						action: onChanceStateInput,
 						style: styles.weightMax
@@ -241,7 +241,7 @@ export default function Presentation() {
 						name: "heightMax",
 						label: "Altura máxima",
 						min: form.heightMin,
-						max: 80,
+						max: 100,
 						value: form.heightMax,
 						action: onChanceStateInput,
 						style: styles.heightMax
@@ -260,7 +260,7 @@ export default function Presentation() {
 						name: "years_of_life_max",
 						label: "Años de vida máximo",
 						min: form.years_of_life_min,
-						max: 20,
+						max: 25,
 						value: form.years_of_life_max,
 						action: onChanceStateInput,
 						style: styles.lifeSpanMax
@@ -268,26 +268,8 @@ export default function Presentation() {
 				]}
 				action={onChanceStateInput}
 			/>
-			<Action action={(e) => submit(form)} content={"Buscar raza de perro"} style={styles.submit}/>
+			<Action action={(e) => { submit(form)}} content={"Buscar perros"} style={styles.submit}/>
 		</div>
 	);
 }
 
-/*
-		this.inputText = this.props.inputText ? this.props.inputText : [];
-		this.inputRadio = this.props.inputRadio ? this.props.inputRadio : [];
-		this.inputCheck = this.props.inputCheck ? this.props.inputCheck : [];
-
-
-// nameBreed: this.props.nameBreed,
-// weight_min: this.props.weight_min,
-// weight_max: this.props.weight_max,
-// height_min: this.props.height_min,
-// height_max: this.props.height_max,
-// years_of_life_min: this.props.years_of_life_min,
-// years_of_life_max: this.props.years_of_life_max,
-*/
-
-/*
-
-*/

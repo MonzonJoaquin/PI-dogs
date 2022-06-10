@@ -59,13 +59,13 @@ async function getAllDogs(req, res, next) {
 						weight:
 							e.weight.metric !== "NaN"
 								? e.weight.metric
-										.split(" ")
-										.map((e) => Number(e))
-										.filter((e) => !Number.isNaN(e))
+									.split(" ")
+									.map((e) => Number(e))
+									.filter((e) => !Number.isNaN(e))
 								: e.weight.imperial
-										.split(" ")
-										.map((e) => Number(e) * 0.45)
-										.filter((e) => !Number.isNaN(e)),
+									.split(" ")
+									.map((e) => Number(e) * 0.45)
+									.filter((e) => !Number.isNaN(e)),
 						height: e.height.metric
 							.split(" ")
 							.map((e) => Number(e))
@@ -101,13 +101,13 @@ async function getIdDog(req, res, next) {
 						weight:
 							e.weight.metric !== "NaN"
 								? e.weight.metric
-										.split(" ")
-										.map((e) => Number(e))
-										.filter((e) => !Number.isNaN(e))
+									.split(" ")
+									.map((e) => Number(e))
+									.filter((e) => !Number.isNaN(e))
 								: e.weight.imperial
-										.split(" ")
-										.map((e) => Number(e) * 0.45)
-										.filter((e) => !Number.isNaN(e)),
+									.split(" ")
+									.map((e) => Number(e) * 0.45)
+									.filter((e) => !Number.isNaN(e)),
 						height: e.height.metric
 							.split(" ")
 							.map((e) => Number(e))
@@ -173,11 +173,7 @@ async function createDog(req, res, next) {
 		temperaments,
 	} = req.body;
 
-	let list = temperaments;
-	const dataDB = await Temperament.findAll();
-	list = dataDB
-		.filter((e) => list.some((e2) => e2 === e.name))
-		.map((e) => e.dataValues.id);
+
 	if (
 		nameBreed &&
 		heightMin &&
@@ -196,9 +192,23 @@ async function createDog(req, res, next) {
 				weight: `${weightMin} - ${weightMax}`,
 				life_span: `${years_of_life_min} - ${years_of_life_max} years`,
 			});
+			let list = temperaments;
+			const dataDB = await Temperament.findAll();
+			console.log(temperaments);
+			list = dataDB
+				.filter((e) => list.some((e2) => e2 === e.name))
+			const names = []
+			const result = list.reduce((acc, item) => {
+				if (!names.includes(item.dataValues.name)) {
+					names.push(item.dataValues.name)
+					acc.push(item.dataValues.id);
+				}
+				return acc;
+			}, [])
 
+			console.log(result);
 			const add = await Race.findAll({ where: { name: nameBreed } });
-			add[0].addTemperament(list);
+			add[0].addTemperament(result);
 			res.send(newRace);
 		} catch (error) {
 			next(error);

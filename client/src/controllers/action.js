@@ -16,11 +16,11 @@ export const fetchAllTemperaments = () => (dispatch) => {
     .then(response => { 
       dispatch(setTemperaments(response.data))
     })
-    .catch(e => console.log(e))
+    .catch(e => alert(e.message.response.data))
 }
 
 export const postDogInDb = (dog) => {
   axios.post("http://localhost:3001/dog", dog)
-    .then(response => console.log("salio bien, chequeate esto", response))
-    .catch(error => console.log(error))
+    .then(response => alert('Raza de perro creada', response) )
+    .catch(error => alert(error.response.data))
 }

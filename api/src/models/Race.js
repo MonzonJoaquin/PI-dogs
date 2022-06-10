@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
 			name: {
 				type: DataTypes.STRING,
 				allowNull: false,
-        unique: true
+				unique: true
 			},
 			height: {
 				type: DataTypes.STRING,
@@ -39,7 +39,7 @@ module.exports = (sequelize) => {
 			createdInDB: {
 				type: DataTypes.VIRTUAL,
 				defaultValue: true,
-				get(){
+				get() {
 					return true
 				}
 			}
@@ -51,7 +51,7 @@ module.exports = (sequelize) => {
 };
 
 /*
- 	D *
+	  D *
 Nombre *
 Altura *
 Peso *
